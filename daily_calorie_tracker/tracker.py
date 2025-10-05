@@ -1,7 +1,6 @@
 # JAI KASHYAP, 03/10/2025, DAILY CALORIE TRACKER
 
 from datetime import datetime
-import csv
 
 def main():
     print("WELCOME TO THE JK CALORIE TRACKER!\n") # TASK 1
@@ -37,14 +36,16 @@ def main():
         print(f"{meals[i]}" + " "*(12-len(meals[i])) + f"{mealsCals[i]}")
     print(f"TOTAL: {totalCals}")
 
-    permission = input("ENTER 1 IF YOU WANT TO REPORT YOUR DATA TO THE FILE: ") # TASK 6
+    permission = input("\nENTER 1 IF YOU WANT TO REPORT YOUR DATA TO THE FILE: ") # TASK 6
     if permission == '1':
         with open('calTracker.txt','a+', newline='') as file:
-            writer = csv.writer(file)
-            writer.writerow([datetime.now().strftime("%Y-%m-%d %H:%M:%S"), meals, totalCals, averageCals, evaluation])
-        file.close()
-    else:
-        pass
+            row = f'TIME: {datetime.now().strftime("%Y-%m-%d %H:%M:%S")},'
+            for i in range(len(meals)):
+                row += f' {meals[i]}: {mealsCals[i]},'
+            row += f' TOTAL CALORIES: {totalCals}, '
+            row += f'AVERAGE CALORIES: {averageCals}, '
+            row += f'FOLLOWED DAILY LIMIT: {evaluation}'
+            file.write(row)
     print("\nTHANK YOU FOR USING THE JK CALORIE TRACKER :)")
 
 if __name__ == '__main__':
